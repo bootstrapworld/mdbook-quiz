@@ -61,6 +61,8 @@ pub enum Question {
   Tracing(Tracing),
   /// A [`MultipleChoice`] question.
   MultipleChoice(MultipleChoice),
+  /// An [`Informational`] question.
+  Informational(Informational),
 }
 
 /// Fields common to all question types.
@@ -229,6 +231,12 @@ pub struct MultipleChoiceAnswer {
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct MultipleChoice(pub QuestionFields<MultipleChoicePrompt, MultipleChoiceAnswer>);
+
+/// A poster type
+#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(TS), ts(export))]
+#[cfg_attr(feature = "json-schema", derive(JsonSchema))]
+pub struct Informational(pub QuestionFields<MultipleChoicePrompt>);
 
 #[cfg(test)]
 mod test {

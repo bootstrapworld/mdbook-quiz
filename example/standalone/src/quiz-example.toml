@@ -14,6 +14,15 @@ Immutable means "not mutable", or not changeable.
 """
 id = "18ea4c61-c7c3-433f-add5-d3d3156e3e71"
 
+# [[questions]]
+# type = "Informational"
+# prompt.text = "This is an informational question with an image."
+# context = """
+# This is some context for the informational question.
+# """
+# image = "lebron.jpg"
+# id = "1234567876543"
+
 [[questions]]
 type = "ShortAnswer"
 prompt.prompt = "What is the keyword used after `let` to indicate that a variable can be mutated?"
