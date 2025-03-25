@@ -31,6 +31,7 @@ export let TracingMethods: QuestionMethods<TracingPrompt, TracingAnswer> = {
         compiler error. */}
       </p>
       <Snippet snippet={prompt.program} lineNumbers />
+      {prompt.image && <img src={prompt.image} alt="" />}
     </>
   ),
 

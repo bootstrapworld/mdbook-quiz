@@ -20,6 +20,7 @@ export let MultipleChoiceMethods: QuestionMethods<
   PromptView: ({ prompt }) => (
     <MarkdownView
       markdown={prompt.prompt}
+      imag={prompt.image}
       snippetOptions={{ lineNumbers: true }}
     />
   ),

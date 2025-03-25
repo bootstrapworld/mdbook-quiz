@@ -12,6 +12,7 @@ import { MultipleChoiceMethods } from "./multiple-choice";
 import { ShortAnswerMethods } from "./short-answer";
 import { TracingMethods } from "./tracing";
 import type { QuestionMethods } from "./types";
+import { InformationalMethods } from "./informational";
 
 export { MultipleChoiceMethods } from "./multiple-choice";
 export { ShortAnswerMethods } from "./short-answer";
@@ -20,7 +21,8 @@ export { TracingMethods } from "./tracing";
 let methodMapping = {
   ShortAnswer: ShortAnswerMethods,
   Tracing: TracingMethods,
-  MultipleChoice: MultipleChoiceMethods
+  MultipleChoice: MultipleChoiceMethods,
+  Informational: InformationalMethods
 };
 
 export let getQuestionMethods = (
@@ -199,7 +201,8 @@ export let QuestionView: React.FC<QuestionViewProps> = ({
   return (
     <div className={classNames("question", questionClass)}>
       <div className="prompt">
-        <h4>Question {title}</h4>
+        {question.type === "Informational" ? <h4>Informational Poster</h4>
+        : <h4>Question {title}</h4>}
         {question.multipart && (
           <MultipartContext
             question={question}
@@ -207,6 +210,7 @@ export let QuestionView: React.FC<QuestionViewProps> = ({
             title={title}
           />
         )}
+      
         <methods.PromptView prompt={question.prompt} />
         {window.telemetry && showBugReporter && (
           <BugReporter quizName={quizName} question={index} />
@@ -246,7 +250,7 @@ export let QuestionView: React.FC<QuestionViewProps> = ({
             Submit
           </button>
         ) : (
-          <input type="submit" />
+          <input type="submit" value={question.type === "Informational" ? "Continue" : "Submit"} />
         )}
       </form>
     </div>

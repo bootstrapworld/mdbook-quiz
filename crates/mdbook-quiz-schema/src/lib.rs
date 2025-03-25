@@ -99,6 +99,8 @@ pub struct QuestionFields<Prompt, Answer> {
   /// Useful for getting a qualitative sense of why users respond a particular way.
   #[cfg_attr(feature = "ts", ts(optional))]
   pub prompt_explanation: Option<bool>,
+
+  pub image: Option<String>,
 }
 
 /// The kind of response format (and subsequent input method) that accompanies
@@ -236,7 +238,7 @@ pub struct MultipleChoice(pub QuestionFields<MultipleChoicePrompt, MultipleChoic
 #[derive(Debug, Serialize, Deserialize)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
-pub struct Informational(pub QuestionFields<MultipleChoicePrompt>);
+pub struct Informational(pub QuestionFields<ShortAnswerPrompt, ShortAnswerAnswer>);
 
 #[cfg(test)]
 mod test {
