@@ -17,7 +17,7 @@ id = "18ea4c61-c7c3-433f-add5-d3d3156e3e71"
 [[questions]]
 type = "ShortAnswer"
 prompt.prompt = "What is the keyword used after `let` to indicate that a variable can be mutated?"
-prompt.image = "https://www.bootstrapworld.org/images/icon.png" # Optional image URL
+image = "https://www.bootstrapworld.org/images/icon.png" # Optional image URL
 answer.answer = "mut"
 context = """
 For example, you can make a mutable variable `x` by writing: `let mut x = 1`.
@@ -27,7 +27,7 @@ id = "dbbaea6a-f469-464f-9d60-99ae98456b6a"
 [[questions]]
 type = "Informational"
 prompt.prompt = "Hello! Good news! This is just a poster, no questions to answer."
-prompt.image = "https://www.bootstrapworld.org/images/icon.png" # Optional image URL
+image = "https://www.bootstrapworld.org/images/icon.png" # Optional image URL
 context = """
 It's so awesome!
 """

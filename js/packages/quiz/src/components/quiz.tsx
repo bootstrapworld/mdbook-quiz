@@ -20,7 +20,6 @@ import {
   type TaggedAnswer,
   getQuestionMethods
 } from "../questions/mod";
-import { info } from "console";
 
 interface StoredAnswers {
   answers: TaggedAnswer[];
@@ -138,7 +137,8 @@ let loadState = ({
       started: true,
       index: quiz.questions.length,
       answers: stored.answers,
-      encounteredInfos: quiz.questions.filter(q => q.type === "Informational").length,
+      encounteredInfos: quiz.questions.filter(q => q.type === "Informational")
+        .length,
       // note: need to provide defaults if schema changes
       confirmedDone: stored.confirmedDone || false,
       attempt: stored.attempt || 0,
@@ -165,34 +165,36 @@ interface HeaderProps {
 
 let Header = observer(({ state, ended }: HeaderProps) => {
   let { quiz } = useContext(QuizConfigContext)!;
-  let informationalCount = quiz.questions.filter(q => q.type === "Informational").length;
+  let informationalCount = quiz.questions.filter(
+    q => q.type === "Informational"
+  ).length;
   return (
     <header>
       <h3>Quiz</h3>
       <div className="counter">
-
-      {state.started ? (
+        {state.started ? (
           quiz.questions.at(state.index)?.type === "Informational" ? (
-        <>{"Poster"}</>
+            <>{"Poster"}</>
           ) : !ended ? (
-        <>
-          Question{" "}
-          {(state.attempt === 0
-            ? state.index
-            : state.wrongAnswers!.indexOf(state.index)) + 1 - state.encounteredInfos}{" "}
-          /{" "}
-          {state.attempt === 0
-            ? quiz.questions.length - informationalCount
-            : state.wrongAnswers!.length}
-        </>
+            <>
+              Question{" "}
+              {(state.attempt === 0
+                ? state.index
+                : state.wrongAnswers!.indexOf(state.index)) +
+                1 -
+                state.encounteredInfos}{" "}
+              /{" "}
+              {state.attempt === 0
+                ? quiz.questions.length - informationalCount
+                : state.wrongAnswers!.length}
+            </>
           ) : null
         ) : (
           <>
-        {quiz.questions.length - informationalCount} question
-        {quiz.questions.length - informationalCount > 1 && "s"}
+            {quiz.questions.length - informationalCount} question
+            {quiz.questions.length - informationalCount > 1 && "s"}
           </>
         )}
-
       </div>
     </header>
   );
@@ -212,7 +214,9 @@ let AnswerReview = ({
   onGiveUp
 }: AnswerReviewProps) => {
   let { quiz, name } = useContext(QuizConfigContext)!;
-  let informationalCount = quiz.questions.filter(q => q.type === "Informational").length;
+  let informationalCount = quiz.questions.filter(
+    q => q.type === "Informational"
+  ).length;
   let confirm = !state.confirmedDone && (
     <p style={{ marginBottom: "1em" }}>
       You can either{" "}
@@ -233,7 +237,8 @@ let AnswerReview = ({
       <p>
         You answered{" "}
         <strong>
-          {nCorrect - informationalCount}/{quiz.questions.length - informationalCount}
+          {nCorrect - informationalCount}/
+          {quiz.questions.length - informationalCount}
         </strong>{" "}
         questions correctly.
       </p>
@@ -409,7 +414,6 @@ export let QuizView: React.FC<QuizViewProps> = observer(
         if (config.quiz.questions[state.index - 1]?.type === "Informational") {
           state.encounteredInfos += 1;
         }
-
       } else {
         state.answers[state.index] = answer;
 

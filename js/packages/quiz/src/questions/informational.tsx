@@ -1,18 +1,18 @@
 import React from "react";
 
+import type { ShortAnswerPrompt } from "../bindings/ShortAnswerPrompt";
 import { MarkdownView } from "../components/markdown";
 import type { QuestionMethods } from "./types";
-import { ShortAnswerPrompt } from "../bindings/ShortAnswerPrompt";
 
 export let InformationalMethods: QuestionMethods<
   ShortAnswerPrompt,
   null,
   null
 > = {
-  PromptView: ({ prompt }) => (
+  PromptView: ({ prompt, image }) => (
     <MarkdownView
       markdown={prompt.prompt}
-      imag={prompt.image}
+      imag={image}
       snippetOptions={{ lineNumbers: true }}
     />
   ),

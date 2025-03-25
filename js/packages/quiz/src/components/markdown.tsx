@@ -44,6 +44,7 @@ export let MarkdownView: React.FC<{
   snippetOptions?: Partial<SnippetOptions>;
 }> = ({ markdown, imag = null, snippetOptions }) => {
   let ref = useRef<HTMLDivElement>(null);
+  console.log('@', imag);
   useEffect(() => {
     renderIde(ref.current!, snippetOptions);
     window.initAquascopeBlocks?.(ref.current!);
@@ -55,7 +56,7 @@ export let MarkdownView: React.FC<{
         markdown={markdown}
         extensions={[highlightExtension(snippetOptions)]}
       />
-      {imag && <img src={ imag } alt="" />}
+      {imag && <img src={imag} alt="" />}
     </div>
   );
 };

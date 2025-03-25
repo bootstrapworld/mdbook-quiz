@@ -8,11 +8,11 @@ import type { Quiz } from "../bindings/Quiz";
 import { MarkdownView } from "../components/markdown";
 import { MoreInfo } from "../components/more-info";
 import { QuizConfigContext, useCaptureMdbookShortcuts } from "../lib";
+import { InformationalMethods } from "./informational";
 import { MultipleChoiceMethods } from "./multiple-choice";
 import { ShortAnswerMethods } from "./short-answer";
 import { TracingMethods } from "./tracing";
 import type { QuestionMethods } from "./types";
-import { InformationalMethods } from "./informational";
 
 export { MultipleChoiceMethods } from "./multiple-choice";
 export { ShortAnswerMethods } from "./short-answer";
@@ -201,8 +201,11 @@ export let QuestionView: React.FC<QuestionViewProps> = ({
   return (
     <div className={classNames("question", questionClass)}>
       <div className="prompt">
-        {question.type === "Informational" ? <h4>Informational Poster</h4>
-        : <h4>Question {title}</h4>}
+        {question.type === "Informational" ? (
+          <h4>Informational Poster</h4>
+        ) : (
+          <h4>Question {title}</h4>
+        )}
         {question.multipart && (
           <MultipartContext
             question={question}
@@ -210,8 +213,7 @@ export let QuestionView: React.FC<QuestionViewProps> = ({
             title={title}
           />
         )}
-      
-        <methods.PromptView prompt={question.prompt} />
+        <methods.PromptView prompt={question.prompt} image={question.image} />
         {window.telemetry && showBugReporter && (
           <BugReporter quizName={quizName} question={index} />
         )}
@@ -250,7 +252,10 @@ export let QuestionView: React.FC<QuestionViewProps> = ({
             Submit
           </button>
         ) : (
-          <input type="submit" value={question.type === "Informational" ? "Continue" : "Submit"} />
+          <input
+            type="submit"
+            value={question.type === "Informational" ? "Continue" : "Submit"}
+          />
         )}
       </form>
     </div>
@@ -311,7 +316,7 @@ export let AnswerView: React.FC<AnswerViewProps> = ({
       <div className="prompt">
         <h4>Question {title}</h4>
         {multipartView}
-        <methods.PromptView prompt={question.prompt} />
+        <methods.PromptView prompt={question.prompt} image={question.image}/>
         {window.telemetry && showBugReporter && (
           <BugReporter quizName={quizName} question={index} />
         )}

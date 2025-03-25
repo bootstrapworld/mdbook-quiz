@@ -73,7 +73,7 @@ pub enum Question {
 pub struct QuestionFields<Prompt, Answer> {
   /// A unique identifier for a given question.
   ///
-  /// Used primarily for telemetry, as a stable identifer for questions.
+  /// Used primarily for telemetry, as a stable identifier for questions.
   #[cfg_attr(feature = "ts", ts(optional))]
   pub id: Option<String>,
 
@@ -100,6 +100,8 @@ pub struct QuestionFields<Prompt, Answer> {
   #[cfg_attr(feature = "ts", ts(optional))]
   pub prompt_explanation: Option<bool>,
 
+  /// Any question type can optionally include an image path
+  #[cfg_attr(feature = "ts", ts(optional))]
   pub image: Option<String>,
 }
 
