@@ -40,8 +40,9 @@ declare global {
 
 export let MarkdownView: React.FC<{
   markdown: string;
+  imag?: string;
   snippetOptions?: Partial<SnippetOptions>;
-}> = ({ markdown, snippetOptions }) => {
+}> = ({ markdown, imag = null, snippetOptions }) => {
   let ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     renderIde(ref.current!, snippetOptions);
@@ -54,6 +55,7 @@ export let MarkdownView: React.FC<{
         markdown={markdown}
         extensions={[highlightExtension(snippetOptions)]}
       />
+      {imag && <img src={ imag } alt="" />}
     </div>
   );
 };

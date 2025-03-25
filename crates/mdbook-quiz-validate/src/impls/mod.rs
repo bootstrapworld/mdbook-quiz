@@ -40,6 +40,7 @@ impl Validate for Question {
       Question::MultipleChoice(q) => q.validate(cx, value),
       Question::ShortAnswer(q) => q.validate(cx, value),
       Question::Tracing(q) => q.validate(cx, value),
+      // Question::Informational(q) => q.validate(cx, value),
     }
   }
 }
