@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import isEqual from 'fast-deep-equal';
+import isEqual from "fast-deep-equal";
 import React, { useContext, useId, useMemo, useRef, useState } from "react";
 import { type RegisterOptions, useForm } from "react-hook-form";
 

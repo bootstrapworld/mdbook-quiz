@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import isEqual from 'fast-deep-equal';
+import isEqual from "fast-deep-equal";
 import React, { useId } from "react";
 
 import type { Markdown } from "../bindings/Markdown";
