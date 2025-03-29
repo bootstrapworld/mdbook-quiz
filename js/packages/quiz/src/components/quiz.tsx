@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import _ from "lodash";
 import { action, toJS } from "mobx";
 import { observer, useLocalObservable } from "mobx-react";
 import hash from "object-hash";
@@ -144,7 +143,9 @@ let loadState = ({
       attempt: stored.attempt || 0,
       wrongAnswers:
         stored.wrongAnswers ||
-        (stored.attempt > 0 ? _.range(quiz.questions.length) : undefined)
+        (stored.attempt > 0
+          ? Array.from({ length: quiz.questions.length }, (_, i) => i)
+          : undefined)
     };
   } else {
     return {
@@ -406,7 +407,7 @@ export let QuizView: React.FC<QuizViewProps> = observer(
     }, [showFullscreen]);
 
     let onSubmit = action((answer: TaggedAnswer) => {
-      answer = _.cloneDeep(answer);
+      answer = structuredClone(answer);
 
       if (state.attempt === 0) {
         state.answers.push(answer);

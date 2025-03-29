@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import _ from "lodash";
+import isEqual from "fast-deep-equal";
 import React, { useContext, useId, useMemo, useRef, useState } from "react";
 import { type RegisterOptions, useForm } from "react-hook-form";
 
@@ -183,7 +183,7 @@ export let QuestionView: React.FC<QuestionViewProps> = ({
     let answer = methods.getAnswerFromDOM
       ? methods.getAnswerFromDOM(data, ref.current!)
       : data;
-    let comparator = methods.compareAnswers || _.isEqual;
+    let comparator = methods.compareAnswers || isEqual;
     let correct = comparator(question.answer, answer);
     onSubmit({
       answer,
@@ -316,7 +316,7 @@ export let AnswerView: React.FC<AnswerViewProps> = ({
       <div className="prompt">
         <h4>Question {title}</h4>
         {multipartView}
-        <methods.PromptView prompt={question.prompt} image={question.image}/>
+        <methods.PromptView prompt={question.prompt} image={question.image} />
         {window.telemetry && showBugReporter && (
           <BugReporter quizName={quizName} question={index} />
         )}

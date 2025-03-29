@@ -44,7 +44,6 @@ export let MarkdownView: React.FC<{
   snippetOptions?: Partial<SnippetOptions>;
 }> = ({ markdown, imag = null, snippetOptions }) => {
   let ref = useRef<HTMLDivElement>(null);
-  console.log('@', imag);
   useEffect(() => {
     renderIde(ref.current!, snippetOptions);
     window.initAquascopeBlocks?.(ref.current!);

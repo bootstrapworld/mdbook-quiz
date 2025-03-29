@@ -1,4 +1,4 @@
-import { type Quiz, QuizView, renderIde } from "@wcrichto/quiz";
+import { type Quiz, QuizView, renderIde } from "@bootstrapworld/quiz";
 import * as rustEditor from "@wcrichto/rust-editor";
 import React from "react";
 import * as ReactDOM from "react-dom/client";
@@ -36,9 +36,12 @@ let initQuizzes = () => {
 
     let maybeParseJson = <T,>(s: string | undefined): T | undefined =>
       s ? JSON.parse(s) : undefined;
-    let fullscreen = maybeParseJson<boolean>(divEl.dataset.quizFullscreen) === true;
-    let cacheAnswers = maybeParseJson<boolean>(divEl.dataset.quizCacheAnswers) === true;
-    let showBugReporter = maybeParseJson<boolean>(divEl.dataset.quizShowBugReporter) === true;
+    let fullscreen =
+      maybeParseJson<boolean>(divEl.dataset.quizFullscreen) === true;
+    let cacheAnswers =
+      maybeParseJson<boolean>(divEl.dataset.quizCacheAnswers) === true;
+    let showBugReporter =
+      maybeParseJson<boolean>(divEl.dataset.quizShowBugReporter) === true;
 
     root.render(
       <ErrorBoundary FallbackComponent={onError}>
