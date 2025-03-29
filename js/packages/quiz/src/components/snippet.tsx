@@ -1,3 +1,4 @@
+import * as rustEditor from "@wcrichto/rust-editor";
 import type { monaco } from "@wcrichto/rust-editor";
 //@ts-ignore
 import hljs from "highlight.js/lib/core";
@@ -82,8 +83,6 @@ export let renderIde = (
   container: HTMLElement,
   options?: Partial<SnippetOptions>
 ): (() => void) | undefined => {
-  const rustEditor = require("@wcrichto/rust-editor");
-
   if (!rustEditor.Editor) return;
 
   let ideNodes = Array.from(container.querySelectorAll("code.ide"));
