@@ -1,11 +1,11 @@
 {
-  "name": "@wcrichto/quiz-embed",
+  "name": "@bootstrapworld/quiz-embed",
   "version": "0.3.10",
   "depot": {
     "platform": "browser"
   },
   "devDependencies": {
-    "@wcrichto/quiz": "workspace:^",
+    "@bootstrapworld/quiz": "workspace:^",
     "@wcrichto/rust-editor": "^0.2.0",
     "mobx": "^6.9.0",
     "mobx-react": "^8.0.0",
