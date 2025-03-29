@@ -54,6 +54,9 @@
     "lodash": "^4.17.21",
     "object-hash": "^3.0.0",
     "react-hook-form": "^7.32.2",
-    "react-showdown": "^2.3.1"
+    "react-showdown": "^2.3.1",
+    "vite": "^6.2.3",
+    "vite-plugin-resolve": "^2.5.2",
+    "vite-plugin-singlefile": "^2.2.0"
   }
 }
