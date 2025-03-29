@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import _ from "lodash";
+import isEqual from "fast-deep-equal";
 import React, { useId } from "react";
 
 import type { Markdown } from "../bindings/Markdown";
@@ -11,6 +11,8 @@ import type { QuestionMethods } from "./types";
 interface MultipleChoiceState {
   choices: string[];
 }
+
+const shuffle = n => [...n].sort(() => 0.5 - Math.random());
 
 export let MultipleChoiceMethods: QuestionMethods<
   MultipleChoicePrompt,
@@ -35,9 +37,9 @@ export let MultipleChoiceMethods: QuestionMethods<
     } else {
       choices = [...answers, ...prompt.distractors];
       if (prompt.sortAnswers) {
-        choices = _.sortBy(choices);
+        choices = choices.concat().sort();
       } else {
-        choices = _.shuffle(choices);
+        choices = shuffle(choices);
       }
     }
     return { choices };
@@ -76,8 +78,8 @@ export let MultipleChoiceMethods: QuestionMethods<
 
   compareAnswers(provided, user) {
     let toList = (s: Markdown | Markdown[]) =>
-      _.sortBy(Array.isArray(s) ? s : [s]);
-    return _.isEqual(toList(provided.answer), toList(user.answer));
+      (Array.isArray(s) ? s : [s]).sort();
+    return isEqual(toList(provided.answer), toList(user.answer));
   },
 
   AnswerView: ({ answer, baseline }) => (
