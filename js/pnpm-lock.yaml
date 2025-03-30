@@ -94,9 +94,6 @@ importers:
       '@testing-library/user-event':
         specifier: ^14.4.3
         version: 14.4.3(@testing-library/dom@9.3.1)
-      '@types/lodash':
-        specifier: ^4.14.182
-        version: 4.14.191
       '@types/object-hash':
         specifier: ^2.2.1
         version: 2.2.1
@@ -127,15 +124,12 @@ importers:
 
   packages/quiz-embed:
     devDependencies:
-      '@wcrichto/quiz':
+      '@bootstrapworld/quiz':
         specifier: workspace:^
         version: link:../quiz
       '@wcrichto/rust-editor':
         specifier: ^0.2.0
         version: 0.2.0(react@18.2.0)
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
       mobx:
         specifier: ^6.9.0
         version: 6.9.0
@@ -320,7 +314,6 @@ packages:
   '@biomejs/cli-linux-x64@1.9.4':
     resolution: {integrity: sha512-lRCJv/Vi3Vlwmbd6K+oQ0KhLHMAysN8lXoCI7XeHlxaajk06u7G+UsFSO01NAs5iYuWKmVZjmiOzJ0OJmGsMwg==}
     engines: {node: '>=14.21.3'}
-    cpu: [x64]
     os: [linux]
 
   '@biomejs/cli-win32-arm64@1.8.3':
@@ -843,9 +836,6 @@ packages:
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
-
-  '@types/lodash@4.14.191':
-    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
 
   '@types/node@20.3.0':
     resolution: {integrity: sha512-cumHmIAf6On83X7yP+LrsEyUOf/YlociZelmpRYaGFydoaPdxdt80MAbu6vWerQT2COCp2nPvHdsbD7tHn/YlQ==}
@@ -3164,8 +3154,6 @@ snapshots:
   '@types/chai@4.3.5': {}
 
   '@types/estree@1.0.7': {}
-
-  '@types/lodash@4.14.191': {}
 
   '@types/node@20.3.0': {}
 

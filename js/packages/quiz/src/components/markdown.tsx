@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { Markdown as Showdown, type ShowdownExtension } from "react-showdown";
-
-import { type SnippetOptions, renderIde, snippetToNode } from "./snippet";
+import {
+  type CodeEditor,
+  type SnippetOptions,
+  renderIde,
+  snippetToNode
+} from "./snippet";
 
 let highlightExtension = (
   options?: Partial<SnippetOptions>
@@ -41,10 +45,11 @@ declare global {
 export let MarkdownView: React.FC<{
   markdown: string;
   snippetOptions?: Partial<SnippetOptions>;
-}> = ({ markdown, snippetOptions }) => {
+  Editor?: React.FC<CodeEditor>;
+}> = ({ Editor, markdown, snippetOptions }) => {
   let ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    renderIde(ref.current!, snippetOptions);
+    renderIde(Editor, ref.current!, snippetOptions);
     window.initAquascopeBlocks?.(ref.current!);
   }, [markdown]);
 

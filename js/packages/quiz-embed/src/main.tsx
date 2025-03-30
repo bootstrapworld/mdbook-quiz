@@ -1,4 +1,9 @@
-import { type Quiz, QuizView, renderIde } from "@wcrichto/quiz";
+import {
+  type CodeEditor,
+  type Quiz,
+  QuizView,
+  renderIde
+} from "@bootstrapworld/quiz";
 import * as rustEditor from "@wcrichto/rust-editor";
 import React from "react";
 import * as ReactDOM from "react-dom/client";
@@ -25,7 +30,7 @@ let onError = ({ error }: { error: Error }) => {
 let initQuizzes = () => {
   if (rustEditor.raSetup) {
     rustEditor.raSetup("./quiz");
-    renderIde(document.documentElement);
+    renderIde(rustEditor as React.FC<CodeEditor>, document.documentElement);
   }
 
   document.querySelectorAll(".quiz-placeholder").forEach(el => {

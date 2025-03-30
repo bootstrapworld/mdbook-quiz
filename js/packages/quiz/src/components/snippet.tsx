@@ -1,4 +1,3 @@
-import * as rustEditor from "@wcrichto/rust-editor";
 import type { monaco } from "@wcrichto/rust-editor";
 //@ts-ignore
 import hljs from "highlight.js/lib/core";
@@ -14,6 +13,17 @@ export interface SnippetOptions {
   snippet: string;
   lineNumbers?: boolean;
   language?: string;
+}
+
+// Allow for use of different CodeEditors (rust, pyret, etc)
+export interface CodeEditor {
+  contents: string;
+  disabled?: boolean;
+  exactHeight?: boolean;
+  highlights?: [number, number][];
+  editorOptions?: monaco.editor.IStandaloneEditorConstructionOptions;
+  onChange?: (contents: string) => void;
+  onInit?: (editor: monaco.editor.IStandaloneCodeEditor) => void;
 }
 
 export let snippetToNode = ({
@@ -80,10 +90,11 @@ let extractMarks = (inp: string): { s: string; marks: [number, number][] } => {
 };
 
 export let renderIde = (
+  Editor: React.FC<CodeEditor>,
   container: HTMLElement,
   options?: Partial<SnippetOptions>
 ): (() => void) | undefined => {
-  if (!rustEditor.Editor) return;
+  if (!Editor) return;
 
   let ideNodes = Array.from(container.querySelectorAll("code.ide"));
   let roots = ideNodes.map(node => {
@@ -106,7 +117,7 @@ export let renderIde = (
             lineNumbersMinChars: 0
           };
     root.render(
-      <rustEditor.Editor
+      <Editor
         contents={s}
         highlights={marks}
         disabled={true}
