@@ -19,7 +19,8 @@
 #![warn(missing_docs)]
 
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
+use std::hash::{Hash};
 
 #[cfg(feature = "ts")]
 use ts_rs::TS;
@@ -29,7 +30,7 @@ use schemars::JsonSchema;
 
 /// A quiz is the top-level data structure in mdbook-quiz.
 /// It represents a sequence of questions.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct Quiz {
@@ -40,17 +41,17 @@ pub struct Quiz {
   ///
   /// Maps from a string key to a description of the question context.
   #[cfg_attr(feature = "ts", ts(optional))]
-  pub multipart: Option<HashMap<String, Markdown>>,
+  pub multipart: Option<BTreeMap<String, Markdown>>,
 }
 
 /// A [Markdown](https://commonmark.org/help/) string.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct Markdown(pub String);
 
 /// An individual question. One of several fixed types.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 #[serde(tag = "type")]
@@ -64,7 +65,7 @@ pub enum Question {
 }
 
 /// Fields common to all question types.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 #[serde(rename_all = "camelCase")]
@@ -101,7 +102,7 @@ pub struct QuestionFields<Prompt, Answer> {
 
 /// The kind of response format (and subsequent input method) that accompanies
 /// a given short answer questions.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 #[serde(rename_all = "lowercase")]
@@ -117,7 +118,7 @@ pub enum ShortAnswerResponseFormat {
 }
 
 /// A prompt for a [`ShortAnswer`] question.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct ShortAnswerPrompt {
@@ -130,7 +131,7 @@ pub struct ShortAnswerPrompt {
 }
 
 /// An answer for a [`ShortAnswer`] question.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct ShortAnswerAnswer {
@@ -143,13 +144,13 @@ pub struct ShortAnswerAnswer {
 }
 
 /// A question where users type in a response.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct ShortAnswer(pub QuestionFields<ShortAnswerPrompt, ShortAnswerAnswer>);
 
 /// A prompt for a [`Tracing`] question.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct TracingPrompt {
@@ -158,7 +159,7 @@ pub struct TracingPrompt {
 }
 
 /// An answer for a [`Tracing`] question.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 #[serde(rename_all = "camelCase")]
@@ -176,13 +177,13 @@ pub struct TracingAnswer {
 }
 
 /// A question where users guess the output of a program.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct Tracing(pub QuestionFields<TracingPrompt, TracingAnswer>);
 
 /// A prompt for a [`MultipleChoice`] question.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 #[serde(rename_all = "camelCase")]
@@ -203,7 +204,7 @@ pub struct MultipleChoicePrompt {
 }
 
 /// The type of response for a [`MultipleChoice`] question.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 #[serde(untagged)]
@@ -216,7 +217,7 @@ pub enum MultipleChoiceAnswerFormat {
 }
 
 /// An answer for a [`MultipleChoice`] question.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct MultipleChoiceAnswer {
@@ -225,7 +226,7 @@ pub struct MultipleChoiceAnswer {
 }
 
 /// A question where users select among several possible answers.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Hash)]
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct MultipleChoice(pub QuestionFields<MultipleChoicePrompt, MultipleChoiceAnswer>);
