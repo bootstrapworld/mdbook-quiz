@@ -11,10 +11,17 @@ use std::{
   sync::OnceLock,
 };
 use uuid::Uuid;
+use std::hash::{Hash, Hasher, DefaultHasher};
 
 mdbook_preprocessor_utils::asset_generator!("../js/");
 
-const FRONTEND_ASSETS: [Asset; 2] = [make_asset!("quiz-embed.iife.js"), make_asset!("style.css")];
+const FRONTEND_ASSETS: [Asset; 2] = [make_asset!("quiz-embed.iife.js"), make_asset!("quiz-embed.css")];
+
+fn calculate_hash<T: Hash>(t: &T) -> u64 {
+    let mut s = DefaultHasher::new();
+    t.hash(&mut s);
+    s.finish()
+}
 
 #[cfg(feature = "rust-editor")]
 const RA_ASSETS: [Asset; 3] = [
@@ -110,46 +117,8 @@ impl QuizPreprocessor {
     for q in qs.iter_mut() {
       if !q.contains_key("id") {
         changed = true;
-        // generating hash based on the question's prompt
-        let prompt = match q.get("type").and_then(|t| t.as_str()) {
-          // matching using rust matching
-          Some("MultipleChoice") => {
-            let prompt_table = q.get("prompt").and_then(|p| p.as_table()).unwrap();
-            let answer_table = q.get("answer").and_then(|a| a.as_table()).unwrap();
-            let prompt_text = prompt_table.get("prompt").and_then(|p| p.as_str()).unwrap();
-            let distractors = prompt_table.get("distractors").and_then(|d| d.as_array()).unwrap();
-            let correct_answer = answer_table.get("answer").unwrap();
-            
-            let mut hash_input = prompt_text.to_string();
-            // Add correct answer(s) to hash input
-            match correct_answer {
-              Value::String(s) => hash_input.push_str(s.as_str()),
-              Value::Array(arr) => {
-                for ans in arr.iter() {
-                  hash_input.push_str(ans.as_str().unwrap());
-                }
-              }
-              _ => unreachable!("Invalid answer format"),
-            }
-            // Add distractors to hash input
-            for distractor in distractors.iter() {
-              hash_input.push_str(distractor.as_str().unwrap());
-            }
-            hash_input
-          }
-          Some("ShortAnswer") => {
-            let prompt_table = q.get("prompt").and_then(|p| p.as_table()).unwrap();
-            prompt_table.get("prompt").and_then(|p| p.as_str()).unwrap().to_string()
-          }
-          Some("Tracing") => {
-            let prompt_table = q.get("prompt").and_then(|p| p.as_table()).unwrap();
-            prompt_table.get("program").and_then(|p| p.as_str()).unwrap().to_string()
-          }
-          _ => unreachable!("Unknown question type"),
-        };
-        
-        // generating UUID 
-        let id = Uuid::new_v5(&Uuid::NAMESPACE_DNS, prompt.as_bytes()).to_string();
+        //let id = calculate_hash(&q);
+        let id = Uuid::new_v4().to_string();
         q.insert("id", Item::Value(Value::String(Formatted::new(id))));
       }
     }
