@@ -9,13 +9,15 @@ export let ShortAnswerMethods: QuestionMethods<
   ShortAnswerPrompt,
   ShortAnswerAnswer
 > = {
-  PromptView: ({ prompt }) => (
-    <MarkdownView
-      markdown={prompt.prompt}
-      snippetOptions={{ lineNumbers: true }}
-    />
+  PromptView: ({ prompt, image }) => (
+    <div>
+      <MarkdownView
+        markdown={prompt.prompt}
+        imag={image}
+        snippetOptions={{ lineNumbers: true }}
+      />
+    </div>
   ),
-
   ResponseView: ({ prompt, submit, formValidators: { required } }) => {
     let formFields = required("answer");
     return (

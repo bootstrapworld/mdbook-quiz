@@ -22,7 +22,7 @@ import type { QuestionMethods } from "./types";
 // `;
 
 export let TracingMethods: QuestionMethods<TracingPrompt, TracingAnswer> = {
-  PromptView: ({ prompt }) => (
+  PromptView: ({ prompt, image }) => (
     <>
       <p>
         Determine whether the program will pass the compiler. If it passes,
@@ -31,6 +31,7 @@ export let TracingMethods: QuestionMethods<TracingPrompt, TracingAnswer> = {
         compiler error. */}
       </p>
       <Snippet snippet={prompt.program} lineNumbers />
+      {image && <img src={image} alt="" />}
     </>
   ),
 

@@ -170,6 +170,26 @@
               ]
             }
           }
+        },
+        {
+          "description": "An [`Informational`] question.",
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/QuestionFields_for_InformationalPrompt"
+            }
+          ],
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "Informational"
+              ]
+            }
+          }
         }
       ]
     },
@@ -280,6 +300,13 @@
             }
           ]
         },
+        "image": {
+          "description": "URL to an image",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "promptExplanation": {
           "description": "If true, asks all users for a brief prose justification of their answer.\n\nUseful for getting a qualitative sense of why users respond a particular way.",
           "type": [
@@ -342,6 +369,30 @@
           "description": "If true, asks all users for a brief prose justification of their answer.\n\nUseful for getting a qualitative sense of why users respond a particular way.",
           "type": [
             "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "QuestionFields_for_InformationalPrompt": {
+      "description": "Fields for an [`Informational`] question.",
+      "type": "object",
+      "required": [
+        "prompt"
+      ],
+      "properties": {
+        "prompt": {
+          "description": "The contents of the prompt.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/MultipleChoicePrompt"
+            }
+          ]
+        },
+        "id": {
+          "description": "A unique identifier for a given question.\n\nUsed primarily for telemetry, as a stable identifier for questions.",
+          "type": [
+            "string",
             "null"
           ]
         }

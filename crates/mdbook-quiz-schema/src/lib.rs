@@ -62,6 +62,8 @@ pub enum Question {
   Tracing(Tracing),
   /// A [`MultipleChoice`] question.
   MultipleChoice(MultipleChoice),
+  /// An [`Informational`] question.
+  Informational(Informational),
 }
 
 /// Fields common to all question types.
@@ -72,7 +74,7 @@ pub enum Question {
 pub struct QuestionFields<Prompt, Answer> {
   /// A unique identifier for a given question.
   ///
-  /// Used primarily for telemetry, as a stable identifer for questions.
+  /// Used primarily for telemetry, as a stable identifier for questions.
   #[cfg_attr(feature = "ts", ts(optional))]
   pub id: Option<String>,
 
@@ -98,6 +100,10 @@ pub struct QuestionFields<Prompt, Answer> {
   /// Useful for getting a qualitative sense of why users respond a particular way.
   #[cfg_attr(feature = "ts", ts(optional))]
   pub prompt_explanation: Option<bool>,
+
+  /// Any question type can optionally include an image path
+  #[cfg_attr(feature = "ts", ts(optional))]
+  pub image: Option<String>,
 }
 
 /// The kind of response format (and subsequent input method) that accompanies
@@ -230,6 +236,12 @@ pub struct MultipleChoiceAnswer {
 #[cfg_attr(feature = "ts", derive(TS), ts(export))]
 #[cfg_attr(feature = "json-schema", derive(JsonSchema))]
 pub struct MultipleChoice(pub QuestionFields<MultipleChoicePrompt, MultipleChoiceAnswer>);
+
+/// A poster type
+#[derive(Debug, Serialize, Deserialize)]
+#[cfg_attr(feature = "ts", derive(TS), ts(export))]
+#[cfg_attr(feature = "json-schema", derive(JsonSchema))]
+pub struct Informational(pub QuestionFields<ShortAnswerPrompt, ShortAnswerAnswer>);
 
 #[cfg(test)]
 mod test {

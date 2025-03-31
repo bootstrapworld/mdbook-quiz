@@ -1,4 +1,4 @@
-import { type Quiz, QuizView, renderIde } from "@bootstraworld/quiz";
+import { type Quiz, QuizView, renderIde } from "@bootstrapworld/quiz";
 import * as rustEditor from "@wcrichto/rust-editor";
 import React from "react";
 import * as ReactDOM from "react-dom/client";
